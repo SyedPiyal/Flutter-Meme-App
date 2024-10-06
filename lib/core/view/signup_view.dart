@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:listview/core/dataModel/auth_dataModel.dart';
-import 'package:listview/core/view/home.dart';
-import 'package:listview/core/provider/provider.dart';
+import 'package:listview/core/dataModel/registration_request.dart';
+import 'package:listview/core/provider/auth_provider.dart';
+import 'package:listview/core/view/home_view.dart';
+import 'package:listview/core/provider/memes_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../dataModel/registration_response.dart';
 
 class RegView extends StatefulWidget {
   const RegView({super.key});
@@ -20,7 +23,7 @@ class _RegViewState extends State<RegView> {
         email: _emailController.text, password: _passwordController.text);
 
     RegistrationResponse? regRes =
-        await context.read<MemesProvider>().regUser(registrationRequest);
+        await context.read<AuthProvider>().userRegistration(registrationRequest);
     try {
       if (regRes != null && regRes.id != null) {
         ScaffoldMessenger.of(context).showSnackBar(

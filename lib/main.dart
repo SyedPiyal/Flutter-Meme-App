@@ -3,11 +3,11 @@ import 'package:http/http.dart' as http;
 import 'package:listview/core/service/service_locator.dart';
 import 'dart:convert';
 
-import 'package:listview/core/view/home.dart';
-import 'package:listview/core/provider/provider.dart';
+import 'package:listview/core/view/home_view.dart';
+import 'package:listview/core/provider/memes_provider.dart';
 import 'package:provider/provider.dart';
 
-import 'core/view/reg_view.dart';
+import 'core/view/signup_view.dart';
 
 void main() {
   // Initialized get_it
