@@ -4,20 +4,20 @@
 
 import 'dart:convert';
 
-RegistrationRequest registrationRequestFromJson(String str) => RegistrationRequest.fromJson(json.decode(str));
+User registrationRequestFromJson(String str) => User.fromJson(json.decode(str));
 
-String registrationRequestToJson(RegistrationRequest data) => json.encode(data.toJson());
+String registrationRequestToJson(User data) => json.encode(data.toJson());
 
-class RegistrationRequest {
+class User {
   String? email;
   String? password;
 
-  RegistrationRequest({
+  User({
     this.email,
     this.password,
   });
 
-  factory RegistrationRequest.fromJson(Map<String, dynamic> json) => RegistrationRequest(
+  factory User.fromJson(Map<String, dynamic> json) => User(
     email: json["email"],
     password: json["password"],
   );

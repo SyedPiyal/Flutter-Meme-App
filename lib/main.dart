@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'API ListView Demo',
-        home: RegView(),
+        home: SignupView(),
       ),
     );
   }

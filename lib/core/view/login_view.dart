@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:listview/core/dataModel/login_response.dart';
 import 'package:listview/core/dataModel/user.dart';
 import 'package:listview/core/provider/auth_provider.dart';
 import 'package:listview/core/view/home_view.dart';
 import 'package:listview/core/provider/memes_provider.dart';
-import 'package:listview/core/view/login_view.dart';
 import 'package:provider/provider.dart';
 
-import '../dataModel/registration_response.dart';
 
-class SignupView extends StatefulWidget {
-  const SignupView({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<SignupView> createState() => _SignupViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _SignupViewState extends State<SignupView> {
+class _LoginViewState extends State<LoginView> {
   final _emailController = TextEditingController(text: "eve.holt@reqres.in");
   final _passwordController = TextEditingController(text: "pistol");
 
-  void signUp() async {
-    User registrationRequest = User(
-        email: _emailController.text, password: _passwordController.text);
+  void login() async {
+    User loginRequest = User(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
 
-    RegistrationResponse? regRes =
-        await context.read<AuthProvider>().userRegistration(registrationRequest);
+    LoginResponse? loginResponse =
+        await context.read<AuthProvider>().userLogin(loginRequest);
     try {
-      if (regRes != null && regRes.id != null) {
+      if (loginResponse != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Successfull"),
@@ -35,7 +36,7 @@ class _SignupViewState extends State<SignupView> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const LoginView(),
+            builder: (context) => const HomeView(),
           ),
         );
       } else {
@@ -88,7 +89,7 @@ class _SignupViewState extends State<SignupView> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                 onPressed: () {
-                  signUp();
+                  login();
                 },
                 child: provider.isLoading
                     ? const Center(
