@@ -24,8 +24,4 @@ This Flutter application allows users to create an account and log in to view a 
 - Flutter SDK installed on your machine
 - An IDE (e.g., Visual Studio Code, Android Studio)
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/flutter-meme-app.git
-   cd flutter-meme-app
+
