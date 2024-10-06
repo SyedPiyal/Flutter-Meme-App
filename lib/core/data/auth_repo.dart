@@ -5,6 +5,7 @@ import '../dataModel/login_response.dart';
 import '../dataModel/registration_response.dart';
 
 class AuthRepo {
+
   ///
   /// post request to register user
   ///
@@ -21,13 +22,11 @@ class AuthRepo {
     }
   }
 
-
   ///
   /// post request to login user
   ///
   Future<LoginResponse> userLogin(User loginUser) async {
-    final userLogin = await http.post(
-        Uri.parse("https://reqres.in/api/login"),
+    final userLogin = await http.post(Uri.parse("https://reqres.in/api/login"),
         headers: {"Content-Type": "Application/json"},
         body: jsonEncode(loginUser));
     if (userLogin.statusCode == 200) {

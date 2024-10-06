@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<MemesProvider>(
-          create: (context) => ProviderImpl(),
+        ChangeNotifierProvider(
+          create: (context) => MemesProvider(),
         )
       ],
       child: const MaterialApp(

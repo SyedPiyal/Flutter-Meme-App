@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:listview/core/service/auth_repo.dart';
-import 'package:listview/core/service/memes_repo.dart';
+import 'package:listview/core/data/auth_repo.dart';
+import 'package:listview/core/data/memes_repo.dart';
 
 final GetIt getIt = GetIt.instance;
 
