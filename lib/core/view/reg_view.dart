@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:listview/core/auth_dataModel.dart';
-import 'package:listview/core/home.dart';
-import 'package:listview/core/provider.dart';
+import 'package:listview/core/dataModel/auth_dataModel.dart';
+import 'package:listview/core/view/home.dart';
+import 'package:listview/core/provider/provider.dart';
 import 'package:provider/provider.dart';
 
 class RegView extends StatefulWidget {
@@ -13,32 +13,42 @@ class RegView extends StatefulWidget {
 
 class _RegViewState extends State<RegView> {
   final _emailController = TextEditingController(text: "eve.holt@reqres.in");
-  final _passwordController = TextEditingController( text: "pistol");
+  final _passwordController = TextEditingController(text: "pistol");
 
   void signUp() async {
     RegistrationRequest registrationRequest = RegistrationRequest(
         email: _emailController.text, password: _passwordController.text);
+
+    RegistrationResponse? regRes =
+        await context.read<MemesProvider>().regUser(registrationRequest);
     try {
-      RegistrationResponse? registrationResponse =
-          await context.read<MemsProvider>().signUp(registrationRequest);
-      if (registrationResponse != null && registrationResponse.token != null) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Yoo Rasel vai")));
+      if (regRes != null && regRes.id != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Successfull"),
+          ),
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeView(),
+          ),
+        );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Rasel vai Valo na"),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Failed"),
+          ),
+        );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error: $e"),
-      ));
+      print("//--------------> Error User data $e <--------------//");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final regProvider = Provider.of<MemsProvider>(context);
+    final provider = Provider.of<MemesProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -76,7 +86,7 @@ class _RegViewState extends State<RegView> {
                 onPressed: () {
                   signUp();
                 },
-                child: regProvider.isLoading
+                child: provider.isLoading
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:listview/core/provider.dart';
+import 'package:listview/core/provider/provider.dart';
 import 'package:provider/provider.dart';
+
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -14,7 +15,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        context.read<MemsProvider>().getMemsList();
+        context.read<MemesProvider>().getMemsList();
       },
     );
     super.initState();
@@ -22,13 +23,13 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final MProvider = Provider.of<MemsProvider>(context);
+    final mProvider = Provider.of<MemesProvider>(context);
     return Scaffold(
         appBar: AppBar(),
         body: ListView.builder(
-          itemCount: MProvider.memes?.data?.memes?.length ?? 0,
+          itemCount: mProvider.memes?.data?.memes?.length ?? 0,
           itemBuilder: (context, index) {
-            final mems = MProvider.memes?.data?.memes?[index];
+            final mems = mProvider.memes?.data?.memes?[index];
             return Card(
               child: Column(
                 children: [

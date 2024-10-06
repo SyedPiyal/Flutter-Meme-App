@@ -1,6 +1,8 @@
 part of 'provider.dart';
 
-class MemsProviderImpl extends MemsProvider {
+class ProviderImpl extends MemesProvider {
+
+  final MemesService memesService = getIt<MemesService>();
   @override
   void getMemsList() async {
     _isLoading = true;
@@ -17,17 +19,15 @@ class MemsProviderImpl extends MemsProvider {
   }
 
   @override
-  Future<RegistrationResponse?> signUp(RegistrationRequest regReq) async {
+  Future<RegistrationResponse?> regUser(RegistrationRequest regReq) async {
     _isLoading = true;
     notifyListeners();
-
     try {
-      RegistrationResponse registrationResponseData =
-          await memesService.registration(regReq);
-      return registrationResponseData;
+      RegistrationResponse response = await memesService.userReg(regReq);
+      registrationResponse = response;
+      return registrationResponse;
     } catch (e) {
       print("//--------------> $e <--------------//");
-      return null;
     } finally {
       _isLoading = false;
       notifyListeners();
