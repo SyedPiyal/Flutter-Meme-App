@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:listview/core/data/memes_repo.dart';
+import 'package:listview/core/data/memes/memes_repo.dart';
 import 'package:listview/core/service/service_locator.dart';
 import '../dataModel/memes.dart';
 

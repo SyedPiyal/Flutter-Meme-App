@@ -1,33 +1,34 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:listview/core/dataModel/login_response.dart';
 import 'package:listview/core/dataModel/user.dart';
 import 'package:listview/core/provider/auth_provider.dart';
-import 'package:listview/core/view/home_view.dart';
+import 'package:listview/core/view/home/home_view.dart';
 import 'package:listview/core/provider/memes_provider.dart';
+import 'package:listview/core/view/auth/login_view.dart';
 import 'package:provider/provider.dart';
 
+import '../../dataModel/registration_response.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class SignupView extends StatefulWidget {
+  const SignupView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignupView> createState() => _SignupViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignupViewState extends State<SignupView> {
   final _emailController = TextEditingController(text: "eve.holt@reqres.in");
   final _passwordController = TextEditingController(text: "pistol");
 
-  void login() async {
-    User loginRequest = User(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
+  void signUp() async {
+    User registrationRequest =
+        User(email: _emailController.text, password: _passwordController.text);
 
-    LoginResponse? loginResponse =
-        await context.read<AuthProvider>().userLogin(loginRequest);
+    RegistrationResponse? regRes = await context
+        .read<AuthProvider>()
+        .userRegistration(registrationRequest);
     try {
-      if (loginResponse != null) {
+      if (regRes != null && regRes.id != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Successfull"),
@@ -36,7 +37,7 @@ class _LoginViewState extends State<LoginView> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeView(),
+            builder: (context) => const LoginView(),
           ),
         );
       } else {
@@ -47,7 +48,9 @@ class _LoginViewState extends State<LoginView> {
         );
       }
     } catch (e) {
-      print("//--------------> Error User data $e <--------------//");
+      if (kDebugMode) {
+        debugPrint("$e");
+      }
     }
   }
 
@@ -57,11 +60,14 @@ class _LoginViewState extends State<LoginView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("REq"),
+        title: const Text("Registration"),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16.0,
+          vertical: 50,
+        ),
         child: Column(
           children: [
             TextFormField(
@@ -89,7 +95,7 @@ class _LoginViewState extends State<LoginView> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                 onPressed: () {
-                  login();
+                  signUp();
                 },
                 child: provider.isLoading
                     ? const Center(

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:listview/core/dataModel/login_response.dart';
-import 'package:listview/core/data/auth_repo.dart';
+import 'package:listview/core/data/auth/auth_repo.dart';
 import '../dataModel/user.dart';
 import '../dataModel/registration_response.dart';
 import '../service/service_locator.dart';
